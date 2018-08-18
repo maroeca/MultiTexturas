@@ -255,11 +255,14 @@ public class MeshFactory {
         for (int z = 0; z < depth; z++) {
             for (int x = 0; x < width; x++) {
                 int tone = new Color(img.getRGB(x, z)).getRed();
+                float h = tone / (float)maxHeight;
+
+                //** EXERCICIO 2**//
                 int tone1 = new Color(texMap.getRGB(x, z)).getRed();
                 int tone2 = new Color(texMap.getRGB(x,z)).getGreen();
                 int tone3 = new Color(texMap.getRGB(x, z)).getBlue();
-                int tone4 = new Color(texMap.getRGB(x, z)).getAlpha();
-                float h = tone / (float)maxHeight;
+                //int tone4 = new Color(texMap.getRGB(x, z)).getAlpha(); //Não deu pra pegar o alpha direito
+
 
                 Vector4f weight = new Vector4f(
                         /*calcLinear(0.75f, 1.00f, h, false),
@@ -268,12 +271,12 @@ public class MeshFactory {
                         calcLinear(0.00f, 0.16f, h, true)*/
                         tone1, tone2, tone3, 1
                 );
+                texWeights.add(weight);
+
                 //**EXERCICIO 1 **//
 /*                Color newColor = new Color(weight.x, weight.y, weight.z); //pega as componentes do vec de cada pixel e passa pra cor
                 out.setRGB(x, z,newColor.getRGB()); //passa a cor pra cada pixel da imagem, usando o for
                 System.out.println(newColor.getAlpha()+ "," + weight.w);*/
-
-                texWeights.add(weight);
             }
         }
         //**EXERCICIO 1 **//
