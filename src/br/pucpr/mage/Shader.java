@@ -168,7 +168,7 @@ public class Shader {
     public Shader setAttribute(String name, ArrayBuffer buffer) {
         int attribute = glGetAttribLocation(id, name);
         if (attribute == -1) {
-            throw new IllegalArgumentException("Attribute does not exists: " + name);
+//            throw new IllegalArgumentException("Attribute does not exists: " + name);
         }
         if (buffer == null) {
             glDisableVertexAttribArray(attribute);
@@ -189,7 +189,7 @@ public class Shader {
     private int findUniform(String name) {
         int uniform = glGetUniformLocation(id, name);
         if (uniform == -1) {
-            throw new IllegalArgumentException("Uniform does not exists: " + name);
+//            throw new IllegalArgumentException("Uniform does not exists: " + name);
         }
         return uniform;
     }

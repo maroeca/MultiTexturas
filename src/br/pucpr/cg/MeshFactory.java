@@ -165,7 +165,6 @@ public class MeshFactory {
 
     public static Mesh loadTerrain(File file, float scale, int texRepeat) throws IOException {
         BufferedImage img = ImageIO.read(file);
-        BufferedImage texMap = ImageIO.read(new File("C:/Users/maiki/Documents/Jogos_6_Periodo/Prog3D/img/opengl/heights/rbga.jpg"));
         BufferedImage out = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
 
         int width = img.getWidth();
@@ -250,6 +249,7 @@ public class MeshFactory {
             }
         }
 
+        //**EXERCICIO 1 **//
         //Calculo dos pesos
         List<Vector4f> texWeights = new ArrayList<>();
         for (int z = 0; z < depth; z++) {
@@ -257,37 +257,25 @@ public class MeshFactory {
                 int tone = new Color(img.getRGB(x, z)).getRed();
                 float h = tone / (float)maxHeight;
 
-                //** EXERCICIO 2**//
-                int tone1 = new Color(texMap.getRGB(x, z)).getRed();
-                int tone2 = new Color(texMap.getRGB(x,z)).getGreen();
-                int tone3 = new Color(texMap.getRGB(x, z)).getBlue();
-                //int tone4 = new Color(texMap.getRGB(x, z)).getAlpha(); //Não deu pra pegar o alpha direito
-
-
                 Vector4f weight = new Vector4f(
-                        /*calcLinear(0.75f, 1.00f, h, false),
+                        calcLinear(0.75f, 1.00f, h, false),
                         calcPiramid(0.50f, 0.80f, h),
                         calcPiramid(0.15f, 0.60f, h),
-                        calcLinear(0.00f, 0.16f, h, true)*/
-                        tone1, tone2, tone3, 1
+                        calcLinear(0.00f, 0.16f, h, true)
                 );
                 texWeights.add(weight);
-
-                //**EXERCICIO 1 **//
-/*                Color newColor = new Color(weight.x, weight.y, weight.z); //pega as componentes do vec de cada pixel e passa pra cor
+                Color newColor = new Color(weight.z, weight.y, weight.x,weight.w); //pega as componentes do vec de cada pixel e passa pra cor
                 out.setRGB(x, z,newColor.getRGB()); //passa a cor pra cada pixel da imagem, usando o for
-                System.out.println(newColor.getAlpha()+ "," + weight.w);*/
             }
         }
-        //**EXERCICIO 1 **//
-        //salvar(out,"rbga");
 
+        salvar(out,"mountains-rgb");
 
         return new MeshBuilder()
                     .addVector3fAttribute("aPosition", positions)
                     .addVector3fAttribute("aNormal", normals)
                     .addVector2fAttribute("aTexCoord", texCoords)
-                    .addVector4fAttribute("aTexWeight", texWeights)
+                   // .addVector4fAttribute("aTexWeight", texWeights)
                     .setIndexBuffer(indices)
                     .create();
     }

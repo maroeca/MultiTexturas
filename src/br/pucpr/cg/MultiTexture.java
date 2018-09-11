@@ -52,7 +52,7 @@ public class MultiTexture implements Scene {
                 new Vector3f( 1.0f,  1.0f,  1.0f));   //specular
 
         try {
-            mesh = MeshFactory.loadTerrain(new File(PATH + "heights/river.jpg"), 0.4f, 3);
+            mesh = MeshFactory.loadTerrain(new File(PATH + "heights/mountains.jpg"), 0.4f, 3);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -64,11 +64,13 @@ public class MultiTexture implements Scene {
                 new Vector3f(0.0f, 0.0f, 0.0f), //specular
                 0.0f);                          //specular power
         material.setTextures(
-                new Texture(PATH + "textures/snow.jpg"),
+                //new Texture(PATH + "textures/snow.jpg"),
                 new Texture(PATH + "textures/rock.jpg"),
                 new Texture(PATH + "textures/grass.jpg"),
                 new Texture(PATH + "textures/sand.jpg")
         );
+        //Adicionando o RGB como textura - PASSO 4
+        material.setTexture(new Texture(PATH + "heights/mountains-rgb.jpg"));
         
         canvas = MeshFactory.createCanvas();
     }
